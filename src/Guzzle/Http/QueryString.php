@@ -107,6 +107,11 @@ class QueryString extends Collection
             }
         }
 
+        // Fix that will remove the numeric array index from the query string:
+        //  - http://www.php.net/manual/en/function.http-build-query.php#111819
+        //  - http://stackoverflow.com/questions/11996573/php-url-query-nested-array-with-no-index
+        $queryString = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $queryString);
+
         return $queryString;
     }
 
